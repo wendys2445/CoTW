@@ -1,10 +1,22 @@
 Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
+Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Resetgui.ps1
+Rename-Item -Path "ResetguiNew.ps1" -NewName "ResetGui.ps1"
+$version = "2.0"
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Version.txt
+$versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Version.txt"
+$versionvalues = Get-Content $versionfile | Out-String | ConvertFrom-StringData
+$versionvalues.Version
+if ($version -ne $versionvalues.Version) {
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/ResetGui.ps1 -OutFile C:\Users\Public\CoTWPopulationResetFiles\ResetguiNew.ps1
+.\ResetguiNew
+Exit
+}
 $Pathfile = "C:\Users\Public\CoTWPopulationResetFiles\Paths.txt"
 $values = Get-Content $Pathfile | Out-String | ConvertFrom-StringData
 $values.exepath
-$Path = $values.exepath.Replace('¨', '\')
-$global:Path.Replace('¨', '\\')
+$Path = $values.exepath.Replace('¬¨', '\')
+$global:Path.Replace('¬¨', '\\')
 Write-Host "current is $global:Path"
 $PowerShellFormProject1 = New-Object System.Windows.Forms.Form
 $PowerShellFormProject1.Text ='CoTW Population Reset'
@@ -12,12 +24,12 @@ $PowerShellFormProject1.Width = 330
 $PowerShellFormProject1.Height = 330
 $PowerShellFormProject1.AutoSize = $false
 $ButtonType = [System.Windows.MessageBoxButton]::YesNo
-$MessageboxTitle = ìReset Confirmationî
-$Messageboxbody = ìAre you sure you want to Reset Populations on these maps?î
+$MessageboxTitle = ‚ÄúReset Confirmation‚Äù
+$Messageboxbody = ‚ÄúAre you sure you want to Reset Populations on these maps?‚Äù
 $MessageIcon = [System.Windows.MessageBoxImage]::Warning
 $ButtonType2 = [System.Windows.MessageBoxButton]::Ok
-$MessageboxTitle2 = ìReset Appliedî
-$Messageboxbody2 = ìPopulations Resetî
+$MessageboxTitle2 = ‚ÄúReset Applied‚Äù
+$Messageboxbody2 = ‚ÄúPopulations Reset‚Äù
 $MessageIcon2 = [System.Windows.MessageBoxImage]::Information
 $amount = 1500
 $ProgressBar = New-Object System.Windows.Forms.ProgressBar
@@ -39,7 +51,7 @@ $Button2.Add_Click(
 $dialog.ShowDialog()
 if ($dialog.FileName -ne ""){
     $global:Path = $dialog.FileName
-    $savename = $Path -replace '\\','¨'
+    $savename = $Path -replace '\\','¬¨'
     Write-Host "$savename"
     (Get-Content C:\Users\Public\CoTWPopulationResetFiles\Paths.txt).Replace($values.exepath, "$savename")|
     Set-Content C:\Users\Public\CoTWPopulationResetFiles\Paths.txt
@@ -60,8 +72,8 @@ if ($dialog.FileName -ne ""){
     }
     }else{
     $ButtonType3 = [System.Windows.MessageBoxButton]::Ok
-    $MessageboxTitle3 = ìWarningî
-    $Messageboxbody3 = ìNo File Selectedî
+    $MessageboxTitle3 = ‚ÄúWarning‚Äù
+    $Messageboxbody3 = ‚ÄúNo File Selected‚Äù
     $MessageIcon3 = [System.Windows.MessageBoxImage]::Exclamation
     [System.Windows.MessageBox]::Show($Messageboxbody3,$MessageboxTitle3,$ButtonType3,$messageicon3)
     }
