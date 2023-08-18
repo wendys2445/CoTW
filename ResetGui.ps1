@@ -5,6 +5,7 @@ $version = "3.0"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 $versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
 $versionvalues = Get-Content $versionfile | Out-String | ConvertFrom-StringData
+Write-Host "Version:"
 $versionvalues.Version
 if ($version -ne $versionvalues.Version) {
 C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
