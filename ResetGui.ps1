@@ -3,7 +3,7 @@ Add-Type -Assembly System.Windows.Forms
 $filecheck = 'C:\Users\Public\CoTWPopulationResetFiles\ResetGuiNew.ps1'
 
 #If the file does not exist, create it.
-if (-not(Test-Path -Path $filecheck -PathType Leaf)) {
+if ((Test-Path -Path $filecheck -PathType Leaf)) {
      Remove-Item C:\Users\Public\CoTWPopulationResetFiles\ResetGui.ps1
      Rename-Item -Path "C:\Users\Public\CoTWPopulationResetFiles\ResetGuiNew.ps1" -NewName "C:\Users\Public\CoTWPopulationResetFiles\ResetGui.ps1"
  }
