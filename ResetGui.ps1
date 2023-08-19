@@ -1,7 +1,7 @@
 ﻿Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
 
-$version = "4.0"
+$version = "5.0"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 $versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
 $versionvalues = Get-Content $versionfile | Out-String | ConvertFrom-StringData
