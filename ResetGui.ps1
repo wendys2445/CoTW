@@ -10,6 +10,8 @@ $versionvalues.Version
 if ($version -ne $versionvalues.Version) {
 C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
 Exit
+}else {
+Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 }
 
 
@@ -19,12 +21,16 @@ Exit
 
 $Pathfile = "C:\Users\Public\CoTWPopulationResetFiles\Paths.txt"
 $values = Get-Content $Pathfile | Out-String | ConvertFrom-StringData
+Write-Host "Getting Path To Executible..."
 $values.exepath
+Write-Host "Transcoding Path To Executible..."
 $Path = $values.exepath.Replace('¬', '\')
 $global:Path.Replace('¬', '\\')
 $Pathfilesave = "C:\Users\Public\CoTWPopulationResetFiles\Savegame.txt"
 $savevalues = Get-Content $Pathfilesave | Out-String | ConvertFrom-StringData
+Write-Host "Getting Path To Savegame..."
 $savevalues.savepath
+Write-Host "Transcoding Path To Savegame..."
 $savegamedir = $savevalues.savepath.Replace('¬', '\')
 $global:savegamedir.Replace('¬', '\\')
 Write-Host "current is $global:Path"
@@ -113,6 +119,11 @@ if ($dialog.FileName -ne ""){
     $checkbox8.Enabled = $true
     $checkbox9.Enabled = $true
     $checkbox10.Enabled = $true
+    $checkbox11.Enabled = $true
+    $checkbox12.Enabled = $true
+    $checkbox13.Enabled = $true
+    $checkbox14.Enabled = $true
+    $checkbox15.Enabled = $true
     $Button.Enabled = $true
     }
     }else{
@@ -138,7 +149,7 @@ $Button.Add_Click(
 {
 Write-Host $Path
 $confirm = [System.Windows.MessageBox]::Show($Messageboxbody,$MessageboxTitle,$ButtonType,$messageicon)
-Write-host "$confirm"
+Write-host "Decision: $confirm"
 if ($confirm -eq "Yes") {
 if((get-process "theHunterCotW_F" -ea SilentlyContinue) -eq $Null){ 
 echo "Not Running" 
@@ -186,6 +197,22 @@ else{
     if ($checkbox10.Checked) {
     Invoke-Expression -Command  "& '$Path'"
     }
+    if ($checkbox11.Checked) {
+            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_11" "$savegamedir"
+    }
+    if ($checkbox12.Checked) {
+            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_12" "$savegamedir"
+    }
+    if ($checkbox13.Checked) {
+            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_13" "$savegamedir"
+    }
+    if ($checkbox14.Checked) {
+            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_14" "$savegamedir"
+    }
+    if ($checkbox15.Checked) {
+            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_15" "$savegamedir"
+    }
+
 while($i -le $amount){
 $ProgressBar.Value = $i
 $i++
@@ -198,7 +225,7 @@ $objForm.Dispose()
 }
 )
 $CheckBox1 = New-Object System.Windows.Forms.checkbox
-$CheckBox1.Left = 5; $CheckBox1.Width = 280; $CheckBox1.Top = 10
+$CheckBox1.Left = 5; $CheckBox1.Width = 100; $CheckBox1.Top = 10
 $CheckBox1.Text = "Hirschfelden"
 $CheckBox1.Checked = $false
 $CheckBox1.TabIndex = 2
@@ -207,7 +234,7 @@ $checkbox1.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox1)
 $CheckBox2 = New-Object System.Windows.Forms.checkbox
-$CheckBox2.Left = 5; $CheckBox2.Width = 280; $CheckBox2.Top = 30
+$CheckBox2.Left = 5; $CheckBox2.Width = 100; $CheckBox2.Top = 30
 $CheckBox2.Text = "Layton"
 $CheckBox2.Checked = $false
 $CheckBox2.TabIndex = 2
@@ -216,7 +243,7 @@ $checkbox2.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox2)
 $CheckBox3 = New-Object System.Windows.Forms.checkbox
-$CheckBox3.Left = 5; $CheckBox3.Width = 280; $CheckBox3.Top = 50
+$CheckBox3.Left = 5; $CheckBox3.Width = 100; $CheckBox3.Top = 50
 $CheckBox3.Text = "Medved"
 $CheckBox3.Checked = $false
 $CheckBox3.TabIndex = 2
@@ -225,7 +252,7 @@ $checkbox3.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox3)
 $CheckBox4 = New-Object System.Windows.Forms.checkbox
-$CheckBox4.Left = 5; $CheckBox4.Width = 280; $CheckBox4.Top = 70
+$CheckBox4.Left = 5; $CheckBox4.Width = 100; $CheckBox4.Top = 70
 $CheckBox4.Text = "Vurhonga"
 $CheckBox4.Checked = $false
 $CheckBox4.TabIndex = 2
@@ -234,7 +261,7 @@ $checkbox4.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox4)
 $CheckBox5 = New-Object System.Windows.Forms.checkbox
-$CheckBox5.Left = 5; $CheckBox5.Width = 280; $CheckBox5.Top = 90
+$CheckBox5.Left = 5; $CheckBox5.Width = 100; $CheckBox5.Top = 90
 $CheckBox5.Text = "Parque"
 $CheckBox5.Checked = $false
 $CheckBox5.TabIndex = 2
@@ -243,7 +270,7 @@ $checkbox5.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox5)
 $CheckBox6 = New-Object System.Windows.Forms.checkbox
-$CheckBox6.Left = 5; $CheckBox6.Width = 280; $CheckBox6.Top = 110
+$CheckBox6.Left = 5; $CheckBox6.Width = 100; $CheckBox6.Top = 110
 $CheckBox6.Text = "Yukon"
 $CheckBox6.Checked = $false
 $CheckBox6.TabIndex = 2
@@ -252,7 +279,7 @@ $checkbox6.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox6)
 $CheckBox7 = New-Object System.Windows.Forms.checkbox
-$CheckBox7.Left = 5; $CheckBox7.Width = 280; $CheckBox7.Top = 130
+$CheckBox7.Left = 5; $CheckBox7.Width = 100; $CheckBox7.Top = 130
 $CheckBox7.Text = "Cuatro"
 $CheckBox7.Checked = $false
 $CheckBox7.TabIndex = 2
@@ -261,7 +288,7 @@ $checkbox7.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox7)
 $CheckBox8 = New-Object System.Windows.Forms.checkbox
-$CheckBox8.Left = 5; $CheckBox8.Width = 280; $CheckBox8.Top = 150
+$CheckBox8.Left = 5; $CheckBox8.Width = 100; $CheckBox8.Top = 150
 $CheckBox8.Text = "SRP"
 $CheckBox8.Checked = $false
 $CheckBox8.TabIndex = 2
@@ -270,7 +297,7 @@ $checkbox8.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox8)
 $CheckBox9 = New-Object System.Windows.Forms.checkbox
-$CheckBox9.Left = 5; $CheckBox9.Width = 280; $CheckBox9.Top = 170
+$CheckBox9.Left = 5; $CheckBox9.Width = 100; $CheckBox9.Top = 170
 $CheckBox9.Text = "Te Awaroa"
 $CheckBox9.Checked = $false
 $CheckBox9.TabIndex = 2
@@ -287,4 +314,51 @@ if ($values.exepath -eq "empty") {
 $checkbox10.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox10)
+$CheckBox11 = New-Object System.Windows.Forms.checkbox
+$CheckBox11.Left = 105; $CheckBox11.Width = 100; $CheckBox11.Top = 10
+$CheckBox11.Text = "Rancho"
+$CheckBox11.Checked = $false
+$CheckBox11.TabIndex = 2
+if ($values.exepath -eq "empty") {
+$CheckBox11.Enabled = $false
+}
+$PowerShellFormProject1.Controls.Add($CheckBox11)
+$CheckBox12 = New-Object System.Windows.Forms.checkbox
+$CheckBox12.Left = 105; $CheckBox12.Width = 100; $CheckBox12.Top = 30
+$CheckBox12.Text = "Mississipi"
+$CheckBox12.Checked = $false
+$CheckBox12.TabIndex = 2
+if ($values.exepath -eq "empty") {
+$CheckBox12.Enabled = $false
+}
+$PowerShellFormProject1.Controls.Add($CheckBox12)
+$CheckBox13 = New-Object System.Windows.Forms.checkbox
+$CheckBox13.Left = 105; $CheckBox13.Width = 100; $CheckBox13.Top = 50
+$CheckBox13.Text = "Revontuli"
+$CheckBox13.Checked = $false
+$CheckBox13.TabIndex = 2
+if ($values.exepath -eq "empty") {
+$CheckBox13.Enabled = $false
+}
+$PowerShellFormProject1.Controls.Add($CheckBox13)
+$CheckBox14 = New-Object System.Windows.Forms.checkbox
+$CheckBox14.Left = 105; $CheckBox14.Width = 100; $CheckBox14.Top = 70
+$CheckBox14.Text = "New England"
+$CheckBox14.Checked = $false
+$CheckBox14.TabIndex = 2
+if ($values.exepath -eq "empty") {
+$CheckBox14.Enabled = $false
+}
+$PowerShellFormProject1.Controls.Add($CheckBox14)
+$CheckBox15 = New-Object System.Windows.Forms.checkbox
+$CheckBox15.Left = 105; $CheckBox15.Width = 100; $CheckBox15.Top = 90
+$CheckBox15.Text = "Emerald Coast"
+$CheckBox15.Checked = $false
+$CheckBox15.TabIndex = 2
+if ($values.exepath -eq "empty") {
+$CheckBox15.Enabled = $false
+}
+$PowerShellFormProject1.Controls.Add($CheckBox15)
+
+
 $PowerShellFormProject1.ShowDialog()
