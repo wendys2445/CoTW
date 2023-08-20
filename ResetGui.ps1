@@ -1,7 +1,7 @@
 ﻿Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
 
-$version = "7.2"
+$version = "8.0"
 #Getting Version number from Github Repo and comparing to onfile version number defined above
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 $versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
@@ -132,7 +132,6 @@ if ($dialog.FileName -ne ""){
     $checkbox12.Enabled = $true
     $checkbox13.Enabled = $true
     $checkbox14.Enabled = $true
-    $checkbox15.Enabled = $true
     $Button.Enabled = $true
     }
     }else{
@@ -217,9 +216,6 @@ else{
     }
     if ($checkbox14.Checked) {
             copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_14" "$savegamedir"
-    }
-    if ($checkbox15.Checked) {
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_15" "$savegamedir"
     }
 
 while($i -le $amount){
@@ -359,15 +355,7 @@ if ($values.exepath -eq "empty") {
 $CheckBox14.Enabled = $false
 }
 $PowerShellFormProject1.Controls.Add($CheckBox14)
-$CheckBox15 = New-Object System.Windows.Forms.checkbox
-$CheckBox15.Left = 105; $CheckBox15.Width = 100; $CheckBox15.Top = 90
-$CheckBox15.Text = "Emerald Coast"
-$CheckBox15.Checked = $false
-$CheckBox15.TabIndex = 2
-if ($values.exepath -eq "empty") {
-$CheckBox15.Enabled = $false
-}
-$PowerShellFormProject1.Controls.Add($CheckBox15)
+
 
 
 $PowerShellFormProject1.ShowDialog()
