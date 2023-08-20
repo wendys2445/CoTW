@@ -2,6 +2,7 @@
 Write-Host "Update Required! Press any Key To Continue..." -ForegroundColor Green
 $x = $host.ui.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Write-Host "Updating Please Wait..."
+Start-Sleep -Seconds 1
 #Getting most recent script from Github and replacing old script
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/ResetGui.ps1 -OutFile C:\Users\Public\CoTWPopulationResetFiles\ResetGuiNew.ps1
 Remove-Item C:\Users\Public\CoTWPopulationResetFiles\ResetGui.ps1
