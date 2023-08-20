@@ -2,18 +2,23 @@
 Add-Type -Assembly System.Windows.Forms
 
 $version = "7.0"
+#Getting Version number from Github Repo and comparing to onfile version number defined above
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 $versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
 $versionvalues = Get-Content $versionfile | Out-String | ConvertFrom-StringData
 Write-Host "Version:"
 $versionvalues.Version
+#If the versions do not match the program is updated
 if ($version -ne $versionvalues.Version) {
+#Getting Updater script from Github Repo and Updating the Script before running
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Updater.ps1 -OutFile C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1
 Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
 Rename-Item -Path "C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1" -NewName "C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1"
+#Running Updater script
 C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
 Exit
 }else {
+#If Version numbers are equal Version text file is deleted
 Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 }
 
@@ -21,7 +26,7 @@ Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 
 
 
-
+#Getting Paths for Game Exe and save game folder and defining variables with their values after transcoding to correct path as command to get does not allow for single \ as it is a escaping character.
 $Pathfile = "C:\Users\Public\CoTWPopulationResetFiles\Paths.txt"
 $values = Get-Content $Pathfile | Out-String | ConvertFrom-StringData
 Write-Host "Getting Path To Executible..."
