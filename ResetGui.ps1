@@ -1,7 +1,7 @@
 ﻿Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
 
-$version = "8.0"
+$version = "8.1"
 #Getting Version number from Github Repo and comparing to onfile version number defined above
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 $versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
@@ -33,15 +33,15 @@ $values = Get-Content $Pathfile | Out-String | ConvertFrom-StringData
 Write-Host "Getting Path To Executible..."
 $values.exepath
 Write-Host "Transcoding Path To Executible..."
-$Path = $values.exepath.Replace('¬', '\')
-$global:Path.Replace('¬', '\\')
+$global:Path = $values.exepath.Replace('¬', '\')
+$Path.Replace('¬', '\\')
 $Pathfilesave = "C:\Users\Public\CoTWPopulationResetFiles\Savegame.txt"
 $savevalues = Get-Content $Pathfilesave | Out-String | ConvertFrom-StringData
 Write-Host "Getting Path To Savegame..."
 $savevalues.savepath
 Write-Host "Transcoding Path To Savegame..."
-$savegamedir = $savevalues.savepath.Replace('¬', '\')
-$global:savegamedir.Replace('¬', '\\')
+$global:savegamedir = $savevalues.savepath.Replace('¬', '\')
+$savegamedir.Replace('¬', '\\')
 Write-Host "current is $global:Path"
 Write-Host "Current save folder is $savegamedir"
 $PowerShellFormProject1 = New-Object System.Windows.Forms.Form
