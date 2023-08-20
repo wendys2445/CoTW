@@ -11,6 +11,7 @@ $versionvalues.Version
 #If the versions do not match the program is updated
 if ($version -ne $versionvalues.Version) {
 #Getting Updater script from Github Repo and Updating the Script before running
+Write-Host "New Version detected Initialising Update Script"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Updater.ps1 -OutFile C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1
 Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
 Rename-Item -Path "C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1" -NewName "C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1"
