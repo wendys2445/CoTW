@@ -1,13 +1,16 @@
 ﻿Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
 
-$version = "7.0"
+$version = "6.0"
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 $versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
 $versionvalues = Get-Content $versionfile | Out-String | ConvertFrom-StringData
 Write-Host "Version:"
 $versionvalues.Version
 if ($version -ne $versionvalues.Version) {
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Updater.ps1 -OutFile C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1
+Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
+Rename-Item -Path "C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1" -NewName "C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1"
 C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
 Exit
 }else {
