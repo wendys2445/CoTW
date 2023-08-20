@@ -302,7 +302,7 @@ $CheckBox10.TabIndex = 2
 if ($values.exepath -eq "empty") {
 $checkbox10.Enabled = $false
 }
-
+$PowerShellFormProject1.Controls.Add($CheckBox10)
 
 
 
