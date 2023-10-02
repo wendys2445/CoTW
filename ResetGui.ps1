@@ -1,7 +1,7 @@
 Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
 echo "CoTW Poulation File Resetter by Wendys2445"
-$version = "8.9.1"
+$version = "9.0"
 $programfiles = $env:ProgramFiles
 #Getting Version number from Github Repo and comparing to onfile version number defined above
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile "$programfiles\Wendys2445\CoTWPopulationFileReset\Versions.txt"
