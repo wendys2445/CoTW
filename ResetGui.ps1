@@ -1,26 +1,30 @@
-﻿Add-Type -AssemblyName PresentationCore,PresentationFramework
+Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
-
+echo "CoTW Poulation File Resetter by Wendys2445"
 $version = "8.9.1"
+$programfiles = $env:ProgramFiles
 #Getting Version number from Github Repo and comparing to onfile version number defined above
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
-$versionfile = "C:\Users\Public\CoTWPopulationResetFiles\Versions.txt"
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Version.txt -OutFile "$programfiles\Wendys2445\CoTWPopulationFileReset\Versions.txt"
+$versionfile = "$programfiles\Wendys2445\CoTWPopulationFileReset\Versions.txt"
 $versionvalues = Get-Content $versionfile | Out-String | ConvertFrom-StringData
-Write-Host "Version:"
+Write-Host "Current Version:"
 $versionvalues.Version
 #If the versions do not match the program is updated
 if ($version -ne $versionvalues.Version) {
 #Getting Updater script from Github Repo and Updating the Script before running
-Write-Host "New Version detected Initialising Update Script"
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Updater.ps1 -OutFile C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1
-Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
-Rename-Item -Path "C:\Users\Public\CoTWPopulationResetFiles\UpdaterNew.ps1" -NewName "C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1"
+echo "New Version has been detected. Initialising Update Script..."
+echo "Downloading Newest Update Handler.."
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/wendys2445/CoTW/main/Updater.ps1 -OutFile $programfiles\Wendys2445\CoTWPopulationFileReset\UpdaterNew.ps1
+Remove-Item $programfiles\Wendys2445\CoTWPopulationFileReset\Updater.ps1
+Rename-Item -Path "$programfiles\Wendys2445\CoTWPopulationFileReset\UpdaterNew.ps1" -NewName "$programfiles\Wendys2445\CoTWPopulationFileReset\Updater.ps1"
 #Running Updater script
-C:\Users\Public\CoTWPopulationResetFiles\Updater.ps1
+echo "Executing Updater..."
+'$programfiles\Wendys2445\CoTWPopulationFileReset\Updater.ps1'
 Exit
-}else {
+}else { 
+echo "No new updates"
 #If Version numbers are equal Version text file is deleted
-Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
+Remove-Item $programfiles\Wendys2445\CoTWPopulationFileReset\Versions.txt
 }
 
 
@@ -28,22 +32,23 @@ Remove-Item C:\Users\Public\CoTWPopulationResetFiles\Versions.txt
 
 
 #Getting Paths for Game Exe and save game folder and defining variables with their values after transcoding to correct path as command to get does not allow for single \ as it is a escaping character.
-$Pathfile = "C:\Users\Public\CoTWPopulationResetFiles\Paths.txt"
+$Pathfile = "$programfiles\Wendys2445\CoTWPopulationFileReset\Paths.txt"
 $values = Get-Content $Pathfile | Out-String | ConvertFrom-StringData
-Write-Host "Getting Path To Executible..."
+Write-Host "Retrieving Path To Executible..."
 $values.exepath
 Write-Host "Transcoding Path To Executible..."
 $global:Path = $values.exepath.Replace('¬', '\')
 $Path.Replace('¬', '\\')
-$Pathfilesave = "C:\Users\Public\CoTWPopulationResetFiles\Savegame.txt"
+$Pathfilesave = "$programfiles\Wendys2445\CoTWPopulationFileReset\Savegame.txt"
 $savevalues = Get-Content $Pathfilesave | Out-String | ConvertFrom-StringData
-Write-Host "Getting Path To Savegame..."
+Write-Host "Retrieving Path To Savegame..."
 $savevalues.savepath
 Write-Host "Transcoding Path To Savegame..."
 $global:savegamedir = $savevalues.savepath.Replace('¬', '\')
 $savegamedir.Replace('¬', '\\')
-Write-Host "current is $global:Path"
+Write-Host "Current path is $global:Path"
 Write-Host "Current save folder is $savegamedir"
+echo "It is normal to have two errors when resetting this is normal"
 $PowerShellFormProject1 = New-Object System.Windows.Forms.Form
 $PowerShellFormProject1.Text ='CoTW Population Reset'
 $PowerShellFormProject1.Width = 330
@@ -77,8 +82,8 @@ if ($dialog2.SelectedPath -ne "") {
 $global:savegamedir = $dialog2.Selectedpath
 $savegamedirreplace = $savegamedir -replace '\\','¬'
  Write-Host "$savegamedirreplace"
-    (Get-Content C:\Users\Public\CoTWPopulationResetFiles\Savegame.txt).Replace($saveValues.savepath, "$savegamedirreplace")|
-    Set-Content C:\Users\Public\CoTWPopulationResetFiles\Savegame.txt
+    (Get-Content $programfiles\Wendys2445\CoTWPopulationFileReset\Savegame.txt).Replace($saveValues.savepath, "$savegamedirreplace")|
+    Set-Content $programfiles\Wendys2445\CoTWPopulationFileReset\Savegame.txt
     Write-Host "Directory selected is $savegamedir"
     Write-Host $values.exepath
 
@@ -113,8 +118,8 @@ if ($dialog.FileName -ne ""){
     $global:Path = $dialog.FileName
     $savename = $Path -replace '\\','¬'
     Write-Host "$savename"
-    (Get-Content C:\Users\Public\CoTWPopulationResetFiles\Paths.txt).Replace($values.exepath, "$savename")|
-    Set-Content C:\Users\Public\CoTWPopulationResetFiles\Paths.txt
+    (Get-Content $programfiles\Wendys2445\CoTWPopulationFileReset\Paths.txt).Replace($values.exepath, "$savename")|
+    Set-Content $programfiles\Wendys2445\CoTWPopulationFileReset\Paths.txt
     Write-Host "Directory selected is $Path"
     Write-Host $values.exepath
     if ($values.exepath -eq "empty") {
@@ -164,44 +169,43 @@ else{
  }
     if ($checkbox1.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_0" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_0" "$savegamedir"
     }
     if ($checkbox2.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_1" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_1" "$savegamedir"
     }
     if ($checkbox3.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_2" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_2" "$savegamedir"
     }
     if ($checkbox4.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_3" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_3" "$savegamedir"
     }
     if ($checkbox5.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_4" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_4" "$savegamedir"
     }
     if ($checkbox6.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_6" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_6" "$savegamedir"
     }
     if ($checkbox7.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_8" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_8" "$savegamedir"
     }
     if ($checkbox8.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_9" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_9" "$savegamedir"
     }
     if ($checkbox9.Checked) {
 
-            copy "C:\Users\Public\CoTWPopulationResetFiles\animal_population_10" "$savegamedir"
+            copy "$programfiles\Wendys2445\CoTWPopulationFileReset\animal_population_10" "$savegamedir"
     }
     if ($checkbox10.Checked) {
     Invoke-Expression -Command  "& '$Path'"
     }
-
 while($i -le $amount){
 $ProgressBar.Value = $i
 $i++
