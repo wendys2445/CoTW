@@ -19,7 +19,8 @@ Remove-Item $programfiles\Wendys2445\CoTWPopulationFileReset\Updater.ps1
 Rename-Item -Path "$programfiles\Wendys2445\CoTWPopulationFileReset\UpdaterNew.ps1" -NewName "$programfiles\Wendys2445\CoTWPopulationFileReset\Updater.ps1"
 #Running Updater script
 echo "Executing Updater..."
-$programfiles\Wendys2445\CoTWPopulationFileReset\Updater.ps1
+cd $programfiles\Wendys2445\CoTWPopulationFileReset\
+.\Updater.ps1
 Exit
 }else { 
 echo "No new updates"
