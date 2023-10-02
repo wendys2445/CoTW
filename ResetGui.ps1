@@ -1,5 +1,7 @@
 Add-Type -AssemblyName PresentationCore,PresentationFramework
 Add-Type -Assembly System.Windows.Forms
+echo "Do not use currently broken. if you want to use edit this script and remove line 3 and 4 Not Reccomended"
+Exit
 echo "CoTW Poulation File Resetter by Wendys2445"
 $version = "9.2"
 $programfiles = $env:ProgramFiles
